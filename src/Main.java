@@ -14,11 +14,14 @@ public class Main {
 
         final ExecutorService scheduler = Executors.newFixedThreadPool(100);
         List<Osoba> osobaList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             osobaList.add(new Osoba());
        }
-        scheduler.invokeAll(osobaList);
-        sleep(5000);
+        List<Future<Integer>> lista_watkow_osob = scheduler.invokeAll(osobaList);
+        for(Future<Integer> f : lista_watkow_osob)
+        {
+            f.get();
+        }
         if (listaWidzow.size() >= 5)
         {
             System.out.println("Start filmu");
@@ -69,7 +72,7 @@ public class Main {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            x = new Random().nextInt(15);
+            x = new Random().nextInt(100);
             if (x >= 0 && x < 6) {
                 System.out.println("WYBRALEM POZYTYWNIE");
                 listaWidzow.add(new Widz());
